@@ -1,9 +1,6 @@
 \\# About
 
-Repo for the _IntelliJ + Maven Quickstart_ assignment.
+This program is about to model a wardrobe.
+You can store your clothes in the wardrobe and later on you will be able to make an outfit for yourself.
 
-If you plan to use this repo as a "base" for one of your project change
-`<artifactId>intellij-maven-quickstart</artifactId>` to reflect what you're
-working on. E.g. `<artifactId>card-game-simulator-project</artifactId>` or
-similar.
 # ModellingPractice
