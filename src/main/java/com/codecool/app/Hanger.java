@@ -6,13 +6,13 @@ import java.util.Arrays;
 import java.util.List;
 
 public class Hanger {
+    private int id = 0;
     private List<ClothesType> clothesType;
 
-    public Hanger() {
+    public Hanger(int id) {
         clothesType = new ArrayList<>();
+        this.id = id;
     }
-
-    //method amiben addolom az enumot
 
     public void hangerAddClothes(String userClothes) {
         if (userClothes.equals("1")) {
@@ -31,5 +31,9 @@ public class Hanger {
             System.out.println("There is no such clothes.");
         }
         System.out.println(clothesType + " is hanging.");
+    }
+
+    public int getId() {
+        return id;
     }
 }
