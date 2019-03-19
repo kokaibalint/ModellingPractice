@@ -7,7 +7,7 @@ public class Wardrobe {
     private List<Hanger> hangerList;
     private int size;
 
-    public Wardrobe() {
+    public Wardrobe(int size) {
         hangerList = new ArrayList<>();
         this.size = size;
     }

@@ -33,37 +33,31 @@ public class Main {
 //        String userClothes = reader.nextLine();
 
 
-
 //        hanging.hangerAddClothes(userClothes);
-        Hanger hanging = new Hanger();
-
-        Scanner userInput = new Scanner(System.in);
-
-        for (int i = 0; i < userInput;i++)
-        System.out.println("Whats your clothes color: ");
-        String clothesColorByUser = userInput.nextLine();
-        System.out.println("Whats your clothes brand: ");
-        String clothesBrandByUser = userInput.nextLine();
-        System.out.println("Whats your clothes type: ");
-        String clothesTypeByUser = userInput.nextLine();
-        ClothesType a = ClothesType.valueOf(clothesTypeByUser);
-
-        List<String> clothes1 = new ArrayList<>();
-        clothes1.add(clothesColorByUser);
-        clothes1.add(clothesBrandByUser);
-        clothes1.add(clothesTypeByUser);
-
-        System.out.println(clothes1);
-
+//        Hanger hanging = new Hanger();
+//
+//        Scanner userInput = new Scanner(System.in);
+//
+//        for (int i = 0; i < userInput;i++)
+//        System.out.println("Whats your clothes color: ");
+//        String clothesColorByUser = userInput.nextLine();
+//        System.out.println("Whats your clothes brand: ");
+//        String clothesBrandByUser = userInput.nextLine();
+//        System.out.println("Whats your clothes type: ");
+//        String clothesTypeByUser = userInput.nextLine();
+//        ClothesType a = ClothesType.valueOf(clothesTypeByUser);
+//
+//        List<String> clothes1 = new ArrayList<>();
+//        clothes1.add(clothesColorByUser);
+//        clothes1.add(clothesBrandByUser);
+//        clothes1.add(clothesTypeByUser);
+//
+//        System.out.println(clothes1);
 
 
 //        Clothes clothes1 = new Clothes(clothesColorByUser,clothesBrandByUser,a);
 
 //        hanging.makeClothes(userInput);
-
-
-
-
 
 
     }
