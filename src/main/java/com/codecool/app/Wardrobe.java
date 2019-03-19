@@ -4,21 +4,21 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Wardrobe {
-    private Hanger hanger;
     private List<Hanger> hangerList;
+    private int size;
 
     public Wardrobe() {
         hangerList = new ArrayList<>();
+        this.size = size;
     }
 
-    public void wardrobeAddHanger(String makeHanger){
-        if (makeHanger.equals("y")) {
-            hangerList.add(new Hanger(1));
-            System.out.println("A hanger has been added.");
+    public void addHanger(Hanger hanger) {
+        if (hangerList.size() < size) {
+            hangerList.add(hanger);
         }
-        else {
-            System.out.println("bye bradah!");
-        }
+    }
 
+    public List<Hanger> getHangerList() {
+        return hangerList;
     }
 }

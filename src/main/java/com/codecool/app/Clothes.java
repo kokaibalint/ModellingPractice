@@ -1,27 +1,25 @@
 package com.codecool.app;
 
-public class Clothes {
-    private String color;
+public abstract class Clothes {
     private String brand;
+    private boolean hanged;
 
-    public Clothes(String color, String mark) {
-        this.color = color;
+    public Clothes(String brand) {
         this.brand = brand;
+        this.hanged = false;
     }
 
-    public String getColor() {
-        return color;
+    public void hanging() {
+        hanged = true;
     }
 
-    public void setColor(String color) {
-        this.color = color;
+    public boolean isHanged(){
+        return hanged;
     }
 
     public String getBrand() {
         return brand;
     }
 
-    public void setBrand(String brand) {
-        this.brand = brand;
-    }
+
 }
