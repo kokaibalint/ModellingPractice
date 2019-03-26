@@ -10,11 +10,11 @@ public class Hanger {
         cloths = new ArrayList<Clothes>();
     }
 
-    public void addClothes(String clothes) {
+    public void addClothes(Clothes clothes) {
         cloths.add(clothes);
     }
 
-    public void removeClothes(String clothes) {
+    public void removeClothes(Clothes clothes) {
         cloths.remove(clothes);
     }
 
