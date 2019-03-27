@@ -4,22 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Hanger {
-    private List<Clothes> cloths;
+    private int id;
 
-    public Hanger() {
-        cloths = new ArrayList<Clothes>();
+    public Hanger(int id) {
+        this.id = id;
     }
 
-    public void addClothes(Clothes clothes) {
-        cloths.add(clothes);
-    }
-
-    public void removeClothes(Clothes clothes) {
-        cloths.remove(clothes);
-    }
-
-    public List<Clothes> getCloths() {
-        return cloths;
+    public int getId() {
+        return id;
     }
 }
 

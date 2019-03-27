@@ -2,6 +2,7 @@ package com.codecool.cmd;
 
 import com.codecool.app.Clothes;
 import com.codecool.app.ClothesType;
+import com.codecool.app.Hanger;
 import com.codecool.app.Wardrobe;
 
 import java.util.*;
@@ -13,7 +14,9 @@ public class Menu {
     private Wardrobe wardrobe;
     private List<Clothes> createdClothes = new ArrayList<>();
     private Map<Integer,ClothesType> clothesTypeMap = new HashMap<>();
-    private Map<Integer,Clothes> clothesId = new HashMap<>();
+    private Map<Integer,Clothes> clothesIdMap = new HashMap<>();
+    private Map<Integer,Hanger> hangerIdMap = new HashMap<>();
+    private Clothes clothes1;
 
     public Menu() {
 //        wardrobe = createWardrobe();
@@ -39,6 +42,9 @@ public class Menu {
                     listClothes();
                     break;
                 }
+                case "3": {
+                    createHanger();
+                }
                 case "0": {
                     System.exit(0);
                 }
@@ -46,6 +52,7 @@ public class Menu {
         }
 
     }
+
 
     private void show(String[] options) {
         System.out.println(" ");
@@ -63,24 +70,51 @@ public class Menu {
         }
 
         System.out.println("Give an id to your clothes: ");
-        int id = Integer.valueOf(reader.nextLine());
+        int clothesId = Integer.valueOf(reader.nextLine());
 
         System.out.println("Give a brand to your clothes: ");
         String brand = reader.nextLine();
 
         System.out.println("Chose a number: ");
-//        clothesTypeMap = clothesTypeA();
         System.out.println(clothesTypeMap);
         int option = Integer.valueOf(reader.nextLine());
 
-        Clothes clothes1 = new Clothes(id,brand,clothesTypeMap.get(option));
-        createdClothes.add(clothes1);
-        clothesId.put(id,clothes1);
+        System.out.println("Is it clean?");
+        System.out.println("1.Yes / 2.No");
+        int cleanNumber = Integer.valueOf(reader.nextLine());
+
+        try {
+
+        if (cleanNumber == 1) {
+            Clothes clothes1 = new Clothes(clothesId,brand,clothesTypeMap.get(option),false, false,true);
+            createdClothes.add(clothes1);
+
+        }else {
+            Clothes clothes1 = new Clothes(clothesId,brand,clothesTypeMap.get(option),false, false,false);
+            throw new ClothesIsDirtyException("The clothes is dirty, u cant put it into the wardrobe");
+        }
+        clothesIdMap.put(clothesId,clothes1);
+        }
+        catch (ClothesIsDirtyException ex) {
+            System.out.println(ex.getMessage());
+        }
+
     }
     public void listClothes() {
         System.out.println(createdClothes);
     }
 
+    private void createHanger() {
+        System.out.println("Give an id to your hanger: ");
+        int hangerId = Integer.valueOf(reader.nextLine());
+
+        Hanger hanger = new Hanger(hangerId);
+        hangerIdMap.put(hangerId,hanger);
+    }
+
+    private void listHangers() {
+        System.out.println(hangerIdMap);
+    }
 
 
 
