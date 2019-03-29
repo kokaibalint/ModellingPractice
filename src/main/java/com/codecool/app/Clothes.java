@@ -8,18 +8,23 @@ public class Clothes {
     private String brand;
     private ClothesType clothesType;
     private List<Clothes> clothesOnTheFloor;
+    private String color;
+    private int size;
     private boolean hanged;
     private boolean onTheFloor;
     private boolean clean;
 
 
-    public Clothes(int id, String brand, ClothesType clothesType,boolean hanged,boolean onTheFloor,boolean clean) {
+    public Clothes(int id, String brand, ClothesType clothesType,String color,int size,boolean hanged,boolean onTheFloor,boolean clean) {
         this.id = id;
         this.brand = brand;
         this.clothesType = clothesType;
+        this.color = color;
+        this.size = size;
         this.hanged = false;
         this.onTheFloor = false;
         this.clean = true;
+
 
     }
     public void hanging() {
@@ -49,12 +54,22 @@ public class Clothes {
         this.clean = clean;
     }
 
+    public String getColor() {
+        return color;
+    }
+
+    public int getSize() {
+        return size;
+    }
+
     @Override
     public String toString() {
         return "Clothes{" +
             "id=" + id +
             ", brand='" + brand + '\'' +
             ", clothesType=" + clothesType +
+            ", color='" + color + '\'' +
+            ", size=" + size +
             ", hanged=" + hanged +
             ", onTheFloor=" + onTheFloor +
             ", clean=" + clean +
