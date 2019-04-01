@@ -197,20 +197,21 @@ public class Menu {
     }
 
     public void addClothesToHanger(Map<Integer, Hanger> hangerIdMap, Map<Integer, Clothes> clothesIdMap) {
-        int hangerId = Integer.valueOf(reader.nextLine());
-        int clothesId = Integer.valueOf(reader.nextLine());
-        for (int i = 0; i < hangerIdMap.size(); i++) {
-            for (int j = 0; j < clothesIdMap.size();j++) {
-                if (hangerIdMap.containsKey(hangerId) && clothesIdMap.containsKey(clothesId)) {
-                    clothesIdMap.get(j).setHanged(true);
-                    Map<Hanger,Clothes> hangedClothes = new HashMap<>();
-                    hangedClothes.put(hanger, j); //belekéne rakni a settelt clothes-t egy hashmapbbe
-                    System.out.println(hangedClothes);
-                }
-            }
+//        int hangerId = Integer.valueOf(reader.nextLine());
+//        int clothesId = Integer.valueOf(reader.nextLine());
+//        for (int i = 0; i < hangerIdMap.size(); i++) {
+//            for (int j = 0; j < clothesIdMap.size();j++) {
+//                if (hangerIdMap.containsKey(hangerId) && clothesIdMap.containsKey(clothesId)) {
+//                    clothesIdMap.get(j).setHanged(true);
+//                    Map<Hanger, Integer> hangedClothes = new HashMap<>();
+//                    hangedClothes.put(hanger, j); //belekéne rakni a settelt clothes-t egy hashmapbbe
+//                    System.out.println(hangedClothes);
+//                }
+//            }
+        System.out.println("in Pogress");
         }
     }
-}
+
 
 
 // legyen eltárolva a földön a ruha és a wardrobeba beletudja rakni a szekrénybe(legyen a ruhának ID-ja) |PIPA|
