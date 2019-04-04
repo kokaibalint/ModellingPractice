@@ -54,7 +54,7 @@ public class Menu {
                     break;
                 }
                 case "5": {
-                    createHanger();
+                    createHanger(clothesIdMap);
                     break;
                 }
                 case "6": {
@@ -116,12 +116,12 @@ public class Menu {
         try {
 
             if (cleanNumber == 1) {
-                Clothes clothes1 = new Clothes(clothesId, brand, clothesTypeMap.get(option), color, size, false, false, true);
+                Clothes clothes1 = new Clothes(clothesId, brand, clothesTypeMap.get(option), color, size, false, true, true);
                 createdClothes.add(clothes1);
                 clothesIdMap.put(clothesId, clothes1);
 
             } else {
-                Clothes clothes1 = new Clothes(clothesId, brand, clothesTypeMap.get(option), color, size, false, false, false);
+                Clothes clothes1 = new Clothes(clothesId, brand, clothesTypeMap.get(option), color, size, false, true, false);
                 throw new ClothesIsDirtyException("The clothes is dirty, u cant put it into the wardrobe!");
             }
         } catch (ClothesIsDirtyException ex) {
@@ -131,7 +131,7 @@ public class Menu {
     }
 
     public void listClothes() {
-        System.out.println(createdClothes);
+        System.out.println(clothesIdMap);
     }
 
     public void searchClothesByColor(List<Clothes> createdClothes) {
@@ -156,23 +156,59 @@ public class Menu {
         }
     }
 
-    public Hanger createHanger() {
+    public void createHanger(Map<Integer,Clothes> clothesIdMap) {
+        System.out.println("Give the clothes ID which you want to add to a hanger: ");
+//        try {
+        int clothesId = Integer.valueOf(reader.nextLine());
+
+
+        if(clothesIdMap.containsKey(clothesId)) {
+
         System.out.println("Give an id to your hanger: ");
         int hangerId = Integer.valueOf(reader.nextLine());
 
+        Map<Object, Hanger> hangedClothes = new HashMap<>();
 
-        Hanger hanger = new Hanger(hangerId);
-        hangerIdMap.put(hangerId, hanger);
-        try {
-            if (hangers.size() < 3) {
-                hangers.add(hanger);
-            } else {
-                throw new TooBigHangerSizeException("You cant make that much hanger!");
-            }
-        } catch (TooBigHangerSizeException e) {
-            System.out.println(e.getMessage());
+        clothesIdMap.get(clothesId).setHanged(true);
+        clothesIdMap.get(clothesId).setOnTheFloor(false);
+
+        hangedClothes.put(clothesIdMap, new Hanger(hangerId));
+
+        System.out.println(hangedClothes);
+
+
         }
-        return hanger;
+
+        else {
+            System.out.println("There is no such clothes ID! Try again!");
+
+        }
+
+
+
+
+
+//            throw new NotNumberException("Give number you fuck!");
+//
+//        }catch (NotNumberException ex){
+//            System.out.println(ex.getMessage());
+//        }
+
+
+//
+//
+//        Hanger hanger = new Hanger(hangerId);
+//        hangerIdMap.put(hangerId, hanger);
+//        try {
+//            if (hangers.size() < 3) {
+//                hangers.add(hanger);
+//            } else {
+//                throw new TooBigHangerSizeException("You cant make that much hanger!");
+//            }
+//        } catch (TooBigHangerSizeException e) {
+//            System.out.println(e.getMessage());
+//        };
+
     }
 
 

@@ -6,11 +6,9 @@ import java.util.List;
 public class Hanger {
     private int id;
     private int limit;
-    private List<Clothes> hangedClothes;
 
     public Hanger(int id) {
         this.id = id;
-        hangedClothes = new ArrayList<>();
     }
 
     public int getId() {

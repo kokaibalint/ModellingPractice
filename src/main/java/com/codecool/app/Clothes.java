@@ -22,7 +22,7 @@ public class Clothes {
         this.color = color;
         this.size = size;
         this.hanged = false;
-        this.onTheFloor = false;
+        this.onTheFloor = true;
         this.clean = true;
 
 
@@ -39,11 +39,11 @@ public class Clothes {
     }
 
     public void setHanged(boolean hanged) {
-        this.hanged = hanged;
+        this.hanged = true;
     }
 
     public void setOnTheFloor(boolean onTheFloor) {
-        this.onTheFloor = onTheFloor;
+        this.onTheFloor = false;
     }
 
     public boolean isClean() {
