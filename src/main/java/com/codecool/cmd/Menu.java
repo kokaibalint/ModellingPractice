@@ -32,7 +32,7 @@ public class Menu {
 
     public void start() {
         String[] options = {"Creating Clothes", "List Clothes", "Search Clothes by color",
-            "Search Clothes by size", "Add clothes to hanger", "List Hangers", "Delete Hanger","Exit"};
+            "Search Clothes by size", "Add clothes to hanger", "List Hangers","Exit"};
         while (true) {
             show(options);
             String chosen = reader.nextLine();
