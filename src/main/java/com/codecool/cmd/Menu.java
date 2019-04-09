@@ -1,7 +1,9 @@
 package com.codecool.cmd;
 
+import com.codecool.Exceptions.NoSuchColorClothesException;
+import com.codecool.Exceptions.NoSuchIdClothesException;
+import com.codecool.Exceptions.NoSuchSizeClothesException;
 import com.codecool.app.Clothes;
-import com.codecool.app.ClothesType;
 import com.codecool.app.Hanger;
 import com.codecool.app.Wardrobe;
 
@@ -9,17 +11,8 @@ import java.util.*;
 
 public class Menu {
 
-    private List<ClothesType> enumsToList = List.of(ClothesType.JACKET, ClothesType.TSHIRT, ClothesType.JEANS, ClothesType.SHOES);
     private Scanner reader = new Scanner(System.in);
     private Wardrobe wardrobe;
-    private List<Clothes> createdClothes = new ArrayList<>();
-    private List<Hanger> hangers = new ArrayList<>();
-    private Map<Integer, ClothesType> clothesTypeMap = new HashMap<>();
-    private Map<Integer, Clothes> clothesIdMap = new HashMap<>();
-    private Map<Object,Object> hangedClothes = new HashMap<>();
-    private Hanger hanger;
-    private Clothes clothes1;
-
     public Menu() {
         wardrobe = new Wardrobe();
     }
@@ -31,35 +24,57 @@ public class Menu {
 //    }
 
     public void start() {
-        String[] options = {"Creating Clothes", "List Clothes", "Search Clothes by color",
-            "Search Clothes by size", "Add clothes to hanger", "List Hangers","Exit"};
+        String[] options = {"Add Clothes","Add Hanger","List Clothes","List Hangers",
+            "Search Clothes by color", "Search Clothes by size","Search Clothes by ID",
+            "Add clothes to hanger","Remove clothes from Hanger", "Exit"};
         while (true) {
             show(options);
             String chosen = reader.nextLine();
             switch (chosen) {
                 case "1": {
-                    wardrobe.createClothes(clothesIdMap);
+                    addClothes();
                     break;
                 }
                 case "2": {
-                    wardrobe.listClothes(clothesIdMap);
+                    addHanger();
                     break;
                 }
                 case "3": {
-                    wardrobe.searchClothesByColor(createdClothes);
+                    listClothes();
                     break;
                 }
                 case "4": {
-                    wardrobe.searchClothesBySize(createdClothes);
+                    listHangers();
                     break;
                 }
                 case "5": {
-                    wardrobe.createHanger(clothesIdMap,hangedClothes);
+                    System.out.println("Give a color: ");
+                    String color = reader.nextLine();
+                    try{
+                        System.out.println(searchClothesByColor(color).toString());
+                    }catch (NoSuchColorClothesException ex) {
+                        System.out.println(ex.getMessage());
+                    }
                     break;
                 }
                 case "6": {
-                    wardrobe.listHangers(hangedClothes);
+                    System.out.println("Give a size: ");
+                    int size = Integer.valueOf(reader.nextLine());
+                    try{
+                        System.out.println(searchClothesBySize(size).toString());
+                    }catch (NoSuchSizeClothesException ex) {
+                        System.out.println(ex.getMessage());
+                    }
                     break;
+                }
+                case "7":{
+                    System.out.println("Give an ID: ");
+                    int clothesId = Integer.valueOf(reader.nextLine());
+                    try{
+                        System.out.println(searchClothesById(clothesId));
+                    }catch (NoSuchIdClothesException ex){
+                        System.out.println(ex.getMessage());
+                    }
                 }
                 case "0": {
                     System.exit(0);
@@ -71,6 +86,56 @@ public class Menu {
 
     }
 
+    private Clothes searchClothesById(int clothesId)throws NoSuchIdClothesException {
+        Clothes clothes = null;
+        for(Clothes element : wardrobe.getCreatedClothes()){
+            if (element.getId() == clothesId){
+                clothes = element;
+            }
+        }
+        if(clothes == null) {
+            throw new NoSuchIdClothesException("There is no clothes as id: " + clothesId);
+        }
+        return clothes;
+    }
+
+    private Clothes searchClothesBySize(int size) throws NoSuchSizeClothesException{
+        Clothes clothes = null;
+        for(Clothes element : wardrobe.getCreatedClothes()) {
+            if(element.getSize() == size){
+                clothes = element;
+            }
+        }
+        if(clothes == null){
+            throw new NoSuchSizeClothesException("There is no clothes as size: " + size);
+        }
+        return clothes;
+    }
+
+    private Clothes searchClothesByColor(String color) throws NoSuchColorClothesException{
+        Clothes clothes = null;
+        for(Clothes element : wardrobe.getCreatedClothes()) {
+            if(element.getColor().equals(color)){
+                clothes = element;
+            }
+        }
+        if(clothes == null){
+            throw new NoSuchColorClothesException("There is no clothes as color: " + color);
+        }
+        return clothes;
+    }
+
+    private void addHanger() {
+        System.out.println("Give an ID to your hanger: ");
+        int hangerId = Integer.valueOf(reader.nextLine());
+        wardrobe.createHanger(hangerId);
+    }
+    private void listHangers() {
+        for(Hanger hanger : wardrobe.getCreatedHangers()){
+            System.out.println(hanger.toString());
+        }
+    }
+
 
     private void show(String[] options) {
         System.out.println(" ");
@@ -80,6 +145,35 @@ public class Menu {
         }
         System.out.println(0 + ". " + options[options.length - 1]);
     }
+
+    private void addClothes() {
+
+        System.out.println("Give an id to your clothes: ");
+        int clothesId = Integer.valueOf(reader.nextLine());
+
+        System.out.println("Give a brand to your clothes: ");
+        String brand = reader.nextLine();
+
+        System.out.println("Chose a number: ");
+        System.out.println(wardrobe.clothesTypeToMap());
+        int option = Integer.valueOf(reader.nextLine());
+
+        System.out.println("Give a color: ");
+        String color = reader.nextLine();
+
+        System.out.println("Give a size: ");
+        int size = Integer.valueOf(reader.nextLine());
+
+        wardrobe.createClothes(clothesId,brand,wardrobe.clothesTypeToMap().get(option),color,size);
+
+    }
+
+    private void listClothes() {
+        for(Clothes element : wardrobe.getCreatedClothes()) {
+            System.out.println(element.toString());
+        }
+    }
+
     }
 
 
