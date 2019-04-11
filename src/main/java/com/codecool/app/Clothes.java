@@ -15,20 +15,16 @@ public class Clothes {
     private boolean clean;
 
 
-    public Clothes(int id, String brand, ClothesType clothesType,String color,int size,boolean hanged,boolean onTheFloor,boolean clean) {
+    public Clothes(int id, String brand, ClothesType clothesType,String color,int size,boolean hanged,boolean clean) {
         this.id = id;
         this.brand = brand;
         this.clothesType = clothesType;
         this.color = color;
         this.size = size;
         this.hanged = false;
-        this.onTheFloor = true;
         this.clean = true;
 
 
-    }
-    public void hanging() {
-        hanged = true;
     }
     public String getBrand() {
         return brand;
@@ -41,11 +37,6 @@ public class Clothes {
     public void setHanged(boolean hanged) {
         this.hanged = true;
     }
-
-    public void setOnTheFloor(boolean onTheFloor) {
-        this.onTheFloor = false;
-    }
-
     public boolean isClean() {
         return clean;
     }
@@ -62,6 +53,10 @@ public class Clothes {
         return size;
     }
 
+    public ClothesType getClothesType() {
+        return clothesType;
+    }
+
     @Override
     public String toString() {
         return "Clothes{" +
@@ -71,7 +66,6 @@ public class Clothes {
             ", color='" + color + '\'' +
             ", size=" + size +
             ", hanged=" + hanged +
-            ", onTheFloor=" + onTheFloor +
             ", clean=" + clean +
             '}';
     }

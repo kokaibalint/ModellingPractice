@@ -1,5 +1,6 @@
 package com.codecool.cmd;
 
+import com.codecool.Exceptions.HangerIsFullException;
 import com.codecool.Exceptions.NoSuchColorClothesException;
 import com.codecool.Exceptions.NoSuchIdClothesException;
 import com.codecool.Exceptions.NoSuchSizeClothesException;
@@ -13,20 +14,17 @@ public class Menu {
 
     private Scanner reader = new Scanner(System.in);
     private Wardrobe wardrobe;
+    private Hanger hanger;
+    private Clothes clothes;
+
     public Menu() {
         wardrobe = new Wardrobe();
     }
 
-//    public Wardrobe createWardrobe() {
-//        System.out.println("First you need to set a size of your wardrobe!");
-//        Wardrobe wardrobe = new Wardrobe(Integer.parseInt(reader.nextLine()));
-//        return wardrobe;
-//    }
-
     public void start() {
-        String[] options = {"Add Clothes","Add Hanger","List Clothes","List Hangers",
-            "Search Clothes by color", "Search Clothes by size","Search Clothes by ID",
-            "Add clothes to hanger","Remove clothes from Hanger", "Exit"};
+        String[] options = {"Add Clothes", "Add Hanger", "List Clothes", "List Hangers",
+            "Search Clothes by color", "Search Clothes by size", "Search Clothes by ID",
+            "Add clothes to hanger", "Remove clothes from Hanger", "Exit"};
         while (true) {
             show(options);
             String chosen = reader.nextLine();
@@ -50,9 +48,9 @@ public class Menu {
                 case "5": {
                     System.out.println("Give a color: ");
                     String color = reader.nextLine();
-                    try{
+                    try {
                         System.out.println(searchClothesByColor(color).toString());
-                    }catch (NoSuchColorClothesException ex) {
+                    } catch (NoSuchColorClothesException ex) {
                         System.out.println(ex.getMessage());
                     }
                     break;
@@ -60,21 +58,39 @@ public class Menu {
                 case "6": {
                     System.out.println("Give a size: ");
                     int size = Integer.valueOf(reader.nextLine());
-                    try{
+                    try {
                         System.out.println(searchClothesBySize(size).toString());
-                    }catch (NoSuchSizeClothesException ex) {
+                    } catch (NoSuchSizeClothesException ex) {
                         System.out.println(ex.getMessage());
                     }
                     break;
                 }
-                case "7":{
+                case "7": {
                     System.out.println("Give an ID: ");
                     int clothesId = Integer.valueOf(reader.nextLine());
-                    try{
+                    try {
                         System.out.println(searchClothesById(clothesId));
-                    }catch (NoSuchIdClothesException ex){
+                    } catch (NoSuchIdClothesException ex) {
                         System.out.println(ex.getMessage());
                     }
+                    break;
+                }
+                case "8": {
+                    try {
+                        addClothingToHanger();
+                        System.out.println("HOZZÁADVA GECI");
+                    } catch (Exception ex) {
+                        System.out.println(ex.getMessage());
+                    }
+                    break;
+
+                }
+                case "9": {
+                    System.out.println("Give the cloth ID: ");
+                    int clothesId = Integer.valueOf(reader.nextLine());
+                    hanger.removeClothesFromHanger(clothesId);
+                    System.out.println("KITÖRÖLVE BASZOD");
+                    break;
                 }
                 case "0": {
                     System.exit(0);
@@ -86,58 +102,92 @@ public class Menu {
 
     }
 
-    private Clothes searchClothesById(int clothesId)throws NoSuchIdClothesException {
+    public void addClothingToHanger() {
+        System.out.println("Give your clothes ID: ");
+        try {
+            Clothes clothes = findClothing(Integer.valueOf(reader.nextLine()));
+            System.out.println("Give the Hanger Id plox");
+            int hangerId = Integer.valueOf(reader.nextLine());
+            for (Clothes element : wardrobe.getCreatedClothes()) {
+                for (Hanger element2 : wardrobe.getCreatedHangers()) {
+                    element2.addClothToHanger(clothes);
+                }
+            }
+        } catch (NumberFormatException ex) {
+            System.out.println(ex.getMessage());
+        }
+    }
+
+    public Clothes findClothing(int clothesId) {
         Clothes clothes = null;
-        for(Clothes element : wardrobe.getCreatedClothes()){
-            if (element.getId() == clothesId){
+        for (Clothes element : wardrobe.getCreatedClothes()) {
+            if (element.getId() == clothesId) {
                 clothes = element;
             }
         }
-        if(clothes == null) {
+        if (clothes == null) {
+        }
+        return clothes;
+    }
+
+    public Clothes searchClothesById(int clothesId) throws NoSuchIdClothesException {
+        Clothes clothes = null;
+        for (Clothes element : wardrobe.getCreatedClothes()) {
+            if (element.getId() == clothesId) {
+                clothes = element;
+            }
+        }
+        if (clothes == null) {
             throw new NoSuchIdClothesException("There is no clothes as id: " + clothesId);
         }
         return clothes;
     }
 
-    private Clothes searchClothesBySize(int size) throws NoSuchSizeClothesException{
+    public Clothes searchClothesBySize(int size) throws NoSuchSizeClothesException {
         Clothes clothes = null;
-        for(Clothes element : wardrobe.getCreatedClothes()) {
-            if(element.getSize() == size){
+        for (Clothes element : wardrobe.getCreatedClothes()) {
+            if (element.getSize() == size) {
                 clothes = element;
             }
         }
-        if(clothes == null){
+        if (clothes == null) {
             throw new NoSuchSizeClothesException("There is no clothes as size: " + size);
         }
         return clothes;
     }
 
-    private Clothes searchClothesByColor(String color) throws NoSuchColorClothesException{
+    public Clothes searchClothesByColor(String color) throws NoSuchColorClothesException {
         Clothes clothes = null;
-        for(Clothes element : wardrobe.getCreatedClothes()) {
-            if(element.getColor().equals(color)){
+        for (Clothes element : wardrobe.getCreatedClothes()) {
+            if (element.getColor().equals(color)) {
                 clothes = element;
             }
         }
-        if(clothes == null){
+        if (clothes == null) {
             throw new NoSuchColorClothesException("There is no clothes as color: " + color);
         }
         return clothes;
     }
 
-    private void addHanger() {
+    public void addHanger() {
         System.out.println("Give an ID to your hanger: ");
         int hangerId = Integer.valueOf(reader.nextLine());
-        wardrobe.createHanger(hangerId);
+
+        System.out.println("Choose a type: ");
+        System.out.println(wardrobe.hangerTypeToMap());
+        int hangerOption = Integer.valueOf(reader.nextLine());
+
+        wardrobe.createHanger(hangerId, wardrobe.hangerTypeToMap().get(hangerOption));
     }
-    private void listHangers() {
-        for(Hanger hanger : wardrobe.getCreatedHangers()){
+
+    public void listHangers() {
+        for (Hanger hanger : wardrobe.getCreatedHangers()) {
             System.out.println(hanger.toString());
         }
     }
 
 
-    private void show(String[] options) {
+    public void show(String[] options) {
         System.out.println(" ");
         for (int i = 0; i < options.length - 1; i++) {
             int num = i + 1;
@@ -146,7 +196,7 @@ public class Menu {
         System.out.println(0 + ". " + options[options.length - 1]);
     }
 
-    private void addClothes() {
+    public void addClothes() {
 
         System.out.println("Give an id to your clothes: ");
         int clothesId = Integer.valueOf(reader.nextLine());
@@ -164,17 +214,17 @@ public class Menu {
         System.out.println("Give a size: ");
         int size = Integer.valueOf(reader.nextLine());
 
-        wardrobe.createClothes(clothesId,brand,wardrobe.clothesTypeToMap().get(option),color,size);
+        wardrobe.createClothes(clothesId, brand, wardrobe.clothesTypeToMap().get(option), color, size);
 
     }
 
-    private void listClothes() {
-        for(Clothes element : wardrobe.getCreatedClothes()) {
+    public void listClothes() {
+        for (Clothes element : wardrobe.getCreatedClothes()) {
             System.out.println(element.toString());
         }
     }
 
-    }
+}
 
 
 
