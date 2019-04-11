@@ -33,17 +33,13 @@ public class Hanger {
 
     public void addClothToHanger(Clothes clothes) {
         clothesList.add(clothes);
-        System.out.println("ADDED" + clothesList);
+        System.out.println("ADDED" + "\n" + clothesList);
     }
 
 
-    public void removeClothesFromHanger(int clothesId) {
-        Clothes clothes;
-        for (Clothes element : clothesList) {
-            if(clothesList.contains(clothesId)){
-                clothesList.remove(element);
-            }
-        }
+    public void removeClothesFromHanger(Clothes clothes) {
+        clothesList.remove(clothes);
+        System.out.println("DELETED" + "\n" + clothesList);
     }
 
     @Override

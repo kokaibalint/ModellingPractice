@@ -14,7 +14,6 @@ public class Menu {
 
     private Scanner reader = new Scanner(System.in);
     private Wardrobe wardrobe;
-    private Hanger hanger;
     private Clothes clothes;
 
     public Menu() {
@@ -86,10 +85,7 @@ public class Menu {
 
                 }
                 case "9": {
-                    System.out.println("Give the cloth ID: ");
-                    int clothesId = Integer.valueOf(reader.nextLine());
-                    hanger.removeClothesFromHanger(clothesId);
-                    System.out.println("KITÖRÖLVE BASZOD");
+                    removeClothingFromHanger();
                     break;
                 }
                 case "0": {
@@ -115,6 +111,15 @@ public class Menu {
             }
         } catch (NumberFormatException ex) {
             System.out.println(ex.getMessage());
+        }
+    }
+    public void removeClothingFromHanger(){
+        System.out.println("Give the cloth ID: ");
+        Clothes clothes = findClothing(Integer.valueOf(reader.nextLine()));
+        for (Clothes element : wardrobe.getCreatedClothes()){
+            for(Hanger element2 : wardrobe.getCreatedHangers()){
+                element2.removeClothesFromHanger(clothes);
+            }
         }
     }
 
