@@ -1,6 +1,7 @@
 package com.codecool.app;
 
 import com.codecool.Exceptions.HangerIsFullException;
+import com.codecool.Exceptions.NoProperHangerException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,18 +33,32 @@ public class Hanger {
     }
 
     public void addClothToHanger(Clothes clothes) {
-        clothesList.add(clothes);
-        System.out.println("ADDED" + "\n" + clothesList);
+        try {
+            if (clothes.getClothesType().equals(ClothesType.TOP) && hangerType.equals(HangerType.SINGLE)) {
+                clothes.setHanged(true);
+                clothesList.add(clothes);
+                System.out.println("ADDED" + "\n" + clothesList);
+            } else if (clothes.getClothesType().equals(ClothesType.BOTTOM) && hangerType.equals(HangerType.SKIRT)) {
+                clothes.setHanged(true);
+                clothesList.add(clothes);
+                System.out.println("ADDED" + "\n" + clothesList);
+            } else {
+                throw new NoProperHangerException("You cant make this!");
+            }
+        } catch (NoProperHangerException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
 
     public void removeClothesFromHanger(Clothes clothes) {
         clothesList.remove(clothes);
+        clothes.setHanged(false);
         System.out.println("DELETED" + "\n" + clothesList);
     }
 
     @Override
-    public String toString () {
+    public String toString() {
         return "Hanger{" +
             "id=" + id +
             " hangerType=" + hangerType +

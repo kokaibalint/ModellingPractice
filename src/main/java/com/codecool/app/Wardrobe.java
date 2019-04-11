@@ -40,7 +40,7 @@ public class Wardrobe {
     }
 
     public Map<Integer, HangerType> hangerTypeToMap() {
-        for (int i = 0; i < clothesTypesToList.size(); i++) {
+        for (int i = 0; i < hangerTypesToList.size(); i++) {
             hangerTypeMap.put(i, hangerTypesToList.get(i));
         }
         return hangerTypeMap;
